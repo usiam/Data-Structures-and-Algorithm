@@ -1,0 +1,97 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+// Import any package as required
+
+public class HuffmanSubmit implements Huffman {
+
+	private static final int NUM_ASCII = 256;
+
+	class HuffmanNode {
+
+		public int value;
+		public int weight;
+		public HuffmanNode left;
+		public HuffmanNode right;
+		public HuffmanNode parent;
+
+		// constructor
+		public HuffmanNode() {
+			parent = null;
+		}
+
+	}
+
+	// Feel free to add more methods and variables as required.
+
+	public void encode(String inputFile, String outputFile, String freqFile) {
+		
+		int[] freqArr = new int[NUM_ASCII];
+		
+		BinaryIn binaryIn = new BinaryIn(inputFile);
+		
+		while (!binaryIn.isEmpty()) {
+			char c = binaryIn.readChar();
+			freqArr[c]++;
+		}
+		
+		writeFreqFile(freqFile, freqArr);
+	
+
+	}
+
+	public void decode(String inputFile, String outputFile, String freqFile) {
+		// TODO: Your code here
+	}
+	
+	public void writeFreqFile(String freqFile, int[] freqArr) {
+		BufferedWriter bw = null;
+		
+		try {
+			
+			for(int i = 0; i < freqArr.length; i++) {
+			
+			}
+			
+			File file = new File(freqFile);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file);
+			bw = new BufferedWriter(fw);
+
+			for (int i = 0; i < outputs.size(); i++) {
+				String mycontent = outputs.get(i);
+				if (i != outputs.size() - 1) {
+					bw.write(mycontent + "\n");
+				} else {
+					bw.write(mycontent);
+				}
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
+	public String getAsciiCode(char c) {
+		String asciiCode = Integer.toBinaryString(c);
+		while(asciiCode.length() != 8) {
+			asciiCode = "0" + asciiCode;
+		}
+		return asciiCode;
+	}
+	
+	public static void main(String[] args) {
+		Huffman huffman = new HuffmanSubmit();
+		huffman.encode("ur.jpg", "ur.enc", "freq.txt");
+		huffman.decode("ur.enc", "ur_dec.jpg", "freq.txt");
+		// After decoding, both ur.jpg and ur_dec.jpg should be the same.
+		// On linux and mac, you can use `diff' command to check if they are the same.
+	}
+
+}

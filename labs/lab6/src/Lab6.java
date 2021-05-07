@@ -1,0 +1,47 @@
+/*CSC 172 Lab
+ * 
+Uzair Tahamid Siam
+email: usiam@u.rochester.edu
+URID: 31434546 / NETID: usiam
+Partner: Abrar Rahman Protyasha
+Lab session - M/W 6:15 - 7:30
+
+*/
+
+public class Lab6 {
+
+	public static void main(String args[]) {
+
+		int[] denominations = {100000, 5000, 2000, 1000, 500, 100, 25, 10, 5, 1 };
+
+		int amount = 63; // $0.63, or 63 pennies
+
+		if (args.length == 1) {
+			amount = Integer.parseInt(args[0]);
+		}
+
+		int[] change = MakeChange.makeChange(amount, denominations);
+		System.out.print("Change for " + amount + " is {");
+		for (int i = 0; i < change.length; i++)
+			if (i != change.length - 1) {
+				System.out.print(change[i] + ", ");
+			} else {
+				System.out.print(change[i]);
+			}
+		System.out.println("}");
+		System.out.println("calls: " + MakeChange.call);
+
+		int[] changeDynamic = MakeChangeDynamicProgramming.makeChange(amount, denominations);
+		System.out.print("Change for " + amount + " is {");
+		for (int i = 0; i < changeDynamic.length; i++)
+			if (i != changeDynamic.length - 1) {
+				System.out.print(changeDynamic[i] + ", ");
+			} else {
+				System.out.print(changeDynamic[i]);
+			}
+		System.out.println("}");
+
+		System.out.println("calls: " + MakeChangeDynamicProgramming.call);
+
+	}
+}

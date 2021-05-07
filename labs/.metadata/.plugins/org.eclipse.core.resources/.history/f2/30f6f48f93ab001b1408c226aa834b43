@@ -1,0 +1,42 @@
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+
+public class Graph {
+
+	public static HashMap<String, Intersection> nodes = new HashMap<String, Intersection>();
+
+	/*
+	 * Algorithm that finds the shortest path to all Intersections from a single
+	 * source Worst case time complexity: O(nlogn)
+	 */
+	static void dijkstraShortestPath(Intersection start, Intersection end) {
+		PriorityQueue<Intersection> nextIntersect = new PriorityQueue<Intersection>();
+		start.distance = 0;
+		nextIntersect.add(start);
+		while (!nextIntersect.isEmpty()) { // while queue is not empty
+			Intersection current = nextIntersect.poll(); // get the minimum Intersection
+			current.visited = true; // mark it as visited
+			LinkedList<Road> neighbors = current.neighborRds; // list of neighbors of the current vertex
+			for (Road r : neighbors) {
+				if (nodes.get(r.roadID).visited == false) {
+					if (nodes.get(r.roadID).distance > // this condition relaxes the vertices
+					current.distance + r.length) {
+						nodes.get(r.roadID).distance = current.distance + r.length;
+						nodes.get(r.roadID).parent = current;
+						nextIntersect.add(nodes.get(r.roadID));
+						nodes.get(r.roadID).visited = true;
+					}
+				}
+			}
+			if (end.visited == true) { // if end has been visited, break from the loop
+				MapProj.isFound = true;
+				System.out.println("Found");
+				break;
+			}
+		}
+	}
+	
+	//public PrimMST
+
+}

@@ -1,0 +1,15 @@
+CSC 172 Lab
+
+Contact 
+-----------------------------------------
+Uzair Tahamid Siam
+email: usiam@u.rochester.edu
+URID: 31434546 / NETID: usiam
+Partner; Abrar Rahman Protyasha
+Lab session - M/W 6:15 - 7:30
+-----------------------------------------
+
+Compilation steps
+-----------------------------------------
+PS F:\CS\CSC172\labs\lab6> javac -d bin -classpath src -sourcepath src src/*.java
+PS F:\CS\CSC172\labs\lab6> java -classpath src Lab6 43

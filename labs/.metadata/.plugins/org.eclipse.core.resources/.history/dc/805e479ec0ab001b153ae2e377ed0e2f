@@ -1,0 +1,85 @@
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+
+public class Graph {
+ 
+	public static HashMap<String, Intersection> nodes = new HashMap<String, Intersection>();
+
+	/*
+	 * Algorithm that finds the shortest path to all Intersections from a single
+	 * source Worst case time complexity: O(nlogn)
+	 */
+	static void dijkstraShortestPath(Intersection start, Intersection end) {
+		PriorityQueue<Intersection> nextIntersect = new PriorityQueue<Intersection>();
+		start.distance = 0;
+		nextIntersect.add(start);
+		while (!nextIntersect.isEmpty()) { // while queue is not empty
+			Intersection current = nextIntersect.poll(); // get the minimum Intersection
+			current.visited = true; // mark it as visited
+			LinkedList<Road> neighbors = current.neighborRds; // list of neighbors of the current vertex
+			for (Road r : neighbors) {
+				if (nodes.get(r.endIntersectID).visited == false) {
+					if (nodes.get(r.endIntersectID).distance > // this condition relaxes the vertices
+					current.distance + r.length) {
+						nodes.get(r.endIntersectID).distance = current.distance + r.length;
+						nodes.get(r.endIntersectID).parent = current;
+						nextIntersect.add(nodes.get(r.endIntersectID));
+						nodes.get(r.endIntersectID).visited = true;
+					}
+				}
+			}
+			if (end.visited == true) { // if end has been visited, break from the loop
+				MapProj.shortestPathFound = true;
+				System.out.println("Found");
+				break;
+			}
+		}
+	}
+	public static LinkedList<Road> PrimMWST() {
+		PriorityQueue<Road> pq = new PriorityQueue<Road>();
+		LinkedList<Road> mwstPath = new LinkedList<Road>();
+
+		Intersection start = nodes.entrySet().iterator().next().getValue();
+		visitMWST(start, pq);
+
+		while (!pq.isEmpty()) {
+			Road road = pq.poll();
+			Intersection itersect1 = road.i1;
+			Intersection itersect2 = road.i2;
+			if (itersect1.visited && itersect2.visited) {
+				continue;
+			}
+			mwstPath.addLast(road);
+			if (!itersect1.visited) {
+				visitMWST(itersect1, pq);
+			}
+			if (!itersect2.visited) {
+				visitMWST(itersect2, pq);
+			}
+		}
+
+		MapProj.meridianPathFound = true;
+		System.out.println("MWST computed");
+		for (Road path : mwstPath) {
+			System.out.println(path);
+		}
+		return mwstPath;
+	}
+
+	private static void visitMWST(Intersection node, PriorityQueue<Road> pq) {
+		node.visited = true;
+		for (Road r : node.neighborRds) {
+			Intersection neighborRd;
+			if (node == r.i1) {
+				neighborRd = r.i2;
+			} else {
+				neighborRd = r.i1;
+			}
+			if (!neighborRd.visited) {
+				pq.add(r);
+			}
+
+		}
+	}
+}

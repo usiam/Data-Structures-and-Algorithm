@@ -1,0 +1,34 @@
+import java.util.LinkedList;
+
+@SuppressWarnings("rawtypes")
+public class Intersection implements Comparable{
+
+	String IntersectionID;
+	double longitude, latitude;
+	boolean visited = false;
+	double distance = 1000000000.0;
+	LinkedList<Road> neighborRds = new LinkedList<>(); // adjacency list
+	Intersection parent = null;
+
+	// constructor
+	public Intersection(String IntersectionID, String longitude, String latitude) {
+		this.IntersectionID = IntersectionID;
+		this.longitude = Double.parseDouble(longitude);
+		this.latitude = Double.parseDouble(latitude);
+	}
+
+	public String toString() {
+		return "Point{longitude=" + longitude + ", latitude=" + latitude + ", id=" + IntersectionID
+				+ ", Adjacent roads =" + neighborRds + ", distance=" + distance + ", visited = " + visited + ", parent="
+				+ parent + "}";
+	}
+
+	public int compareTo(Object node) {
+		if (distance < ((Intersection)node).distance) 
+            return -1; 
+        if (distance > ((Intersection)node).distance) 
+            return 1; 
+        return 0; 
+	}
+
+}

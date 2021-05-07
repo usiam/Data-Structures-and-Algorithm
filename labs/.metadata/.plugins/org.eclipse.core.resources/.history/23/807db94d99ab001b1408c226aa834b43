@@ -1,0 +1,29 @@
+
+public class Road {
+	public String roadID;
+	public Intersection i1;
+	public Intersection i2;
+	double length; // used for weighting 
+
+	// constructor
+	public Road(String roadID, double length) {
+		this.roadID = roadID;
+		this.length = length;
+	}
+
+	public String toString() {
+		return " RoadID = " + roadID + ", length = " + length;
+	}
+
+	//Haversine formula to calculate length 
+	static double calculateLength(double lati1, double lati2, double longi1, double longi2) {
+		final double R = 3958.8; // radius of earth (miles)
+		double delLat = Math.toRadians(lati2 - lati1);
+		double delLong = Math.toRadians(longi2 - longi1);
+		double a = Math.sin(delLat / 2) * Math.sin(delLat / 2) + Math.cos(Math.toRadians(lati1))
+				* Math.cos(Math.toRadians(lati2)) * Math.sin(delLong / 2) * Math.sin(delLong / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		return R * c;
+	}
+
+}
