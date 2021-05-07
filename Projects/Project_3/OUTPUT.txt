@@ -1,0 +1,31 @@
+CSC 172 Project 3
+
+Contact 
+-----------------------------------------
+Uzair Tahamid Siam
+email: usiam@u.rochester.edu
+URID: 31434546 / NETID: usiam
+Lab session - M/W 6:15 - 7:30
+-----------------------------------------
+
+Compilation 
+-----------------------------------------
+Compiles the java files: 
+PS F:\CS\CSC172\Projects\Project_3> javac -d bin -classpath src -sourcepath src src/*.java
+
+To show the map only:
+PS F:\CS\CSC172\Projects\Project_3> java -classpath src MapProj mapName.txt -show
+
+To show map and direction graphically and print out the path and distance:
+PS F:\CS\CSC172\Projects\Project_3> java -classpath src MapProj mapName.txt -show -directions startIntersectionID endIntersectionID 
+
+To print out the path and distance only:
+PS F:\CS\CSC172\Projects\Project_3> java -classpath src MapProj mapName.txt -directions startIntersectionID endIntersectionID 
+
+To show map and path graphically and print out the path:
+PS F:\CS\CSC172\Projects\Project_3> java -classpath src MapProj ur.txt -show -meridianmap 
+
+To print out the path only:
+PS F:\CS\CSC172\Projects\Project_3> java -classpath src MapProj mapName.txt -meridianmap
+
+
